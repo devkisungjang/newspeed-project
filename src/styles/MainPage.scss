@@ -1,4 +1,60 @@
-.mainPage {
+.mainPage-container {
   background-color: #eff2f7;
-  height: 1080px;
+  .mainPage {
+    display: flex;
+    gap: 50px;
+    width: 1024px;
+    height: 1080px;
+    margin: 0 auto;
+    .aside {
+      // background-color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 250px;
+      margin: 40px 0;
+      .editor-btn {
+        background-color: #5c7ecb;
+        // link 태그는 기본적으로 inline 속성이라 block 속성으로 바꿔줘야 사이즈 조절 가능
+        display: block;
+        width: 100%;
+        height: 40px;
+        font-size: 16px;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 10px;
+        color: white;
+        transition: 0.3s;
+        &:hover {
+          background-color: #91a9e6;
+        }
+      }
+      .aside-menu-wrapper {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border-radius: 10px;
+        padding: 10px;
+        .menu {
+          height: 40px;
+          line-height: 40px;
+          padding-left: 40px;
+          border-radius: 10px;
+          transition: 0.3s;
+          cursor: pointer;
+          &:hover {
+            background-color: #5c7ecb;
+            color: white;
+          }
+        }
+      }
+    }
+    .contents {
+      background-color: white;
+      width: 100%;
+      margin: 40px 0;
+      border-radius: 10px;
+    }
+  }
 }
