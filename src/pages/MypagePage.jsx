@@ -2,11 +2,7 @@ import React from "react";
 import "../styles/MypagePage.scss";
 
 const MypagePage = () => {
-  return (
-    <div className="mypage-container">
-      <div className="aside">MypagePage</div>
-    </div>
-  );
+  return <div className="mypage-container"></div>;
 };
 
 export default MypagePage;
