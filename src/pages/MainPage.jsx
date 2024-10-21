@@ -2,39 +2,37 @@ import "../styles/MainPage.scss";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import supabase from "../supabase/index";
 
 const MainPage = () => {
   const [posts, setPosts] = useState([]);
+  const userData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        // 서버 URL을 환경 변수에서 불러옴
-        const response = await axios.get(
-          `${process.env.REACT_APP_LOCAL_SERVER}/posts`
-        );
-        setPosts(response.data);
-      } catch (error) {
-        alert("게시물 로드 중 오류 발생");
-      }
+    const fetchItems = async () => {
+      const response = await supabase.from("post").select("*");
+      setPosts(response.data);
     };
-
-    fetchPosts();
+    fetchItems();
   }, []);
+
   return (
     <div className="mainPage-container">
       <div className="mainPage">
         <div className="aside">
-          <Link to="/editor" className="editor-btn">
-            글쓰기
-          </Link>
+          {userData === null ? null : (
+            <Link to="/editor" className="editor-btn">
+              글쓰기
+            </Link>
+          )}
         </div>
         <div className="contents">
-          {posts.map((value, index) => (
-            <div key={index}>
-              <p>{value.index}</p>
-              <h2>{value.title}</h2>
-              <p>{value.content}</p>
+          {posts.map((post, index) => (
+            <div className="content-wrapper" key={index}>
+              <p>{index + 1}</p>
+              <p>{post.index}</p>
+              <h2>{post.title}</h2>
+              <p>{post.content}</p>
             </div>
           ))}
         </div>
