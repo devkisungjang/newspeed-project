@@ -5,6 +5,7 @@ import supabase from "../supabase/index";
 const MypagePage = () => {
   // 데이터 가져오기
   const [items, setItems] = useState([]);
+  const [targetId, setTargetId] = useState(0);
   const userData = JSON.parse(localStorage.getItem("userData"));
   useEffect(() => {
     const fetchItems = async () => {
@@ -22,7 +23,12 @@ const MypagePage = () => {
     fetchItems();
   }, []);
 
-  const onDeleteHandler = () => {};
+  const onDeleteHandler = async () => {
+    const { error } = await supabase.from("post").delete().eq("id", targetId);
+    if (error) {
+      console.log("error", error);
+    }
+  };
 
   const onUpdateHandler = () => {};
 
@@ -31,7 +37,7 @@ const MypagePage = () => {
       {items
         // .filter((data) => data.user_id === userData.id)
         .map((value, index) => (
-          <div key={index}>
+          <div key={index} onChange={onDeleteHandler}>
             <p>{value.author}</p>
             <p>{value.title}</p>
             <p>{value.content}</p>

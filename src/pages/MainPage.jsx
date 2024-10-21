@@ -30,7 +30,7 @@ const MainPage = () => {
           {posts.map((post, index) => (
             <div className="content-wrapper" key={index}>
               <p>{index + 1}</p>
-              <p>{post.index}</p>
+              <h1>{post.author}</h1>
               <h2>{post.title}</h2>
               <p>{post.content}</p>
             </div>
