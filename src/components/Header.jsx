@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userData"));
-  console.log(userData);
+  // console.log(userData);
   const logoutHandler = () => {
     localStorage.removeItem("userData");
     navigate("login");

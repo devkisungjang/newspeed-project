@@ -22,7 +22,6 @@ const MypagePage = () => {
         .eq("user_id", userData.id)
         .order("created_at", { ascending: false });
       setItems(response.data);
-      console.log(items);
     };
     fetchItems();
   }, []);
