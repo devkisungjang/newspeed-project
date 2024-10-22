@@ -29,10 +29,12 @@ const MainPage = () => {
         <div className="contents">
           {posts.map((post, index) => (
             <div className="content-wrapper" key={index}>
-              <p>{index + 1}</p>
               <h1>{post.author}</h1>
-              <h2>{post.title}</h2>
-              <p>{post.content}</p>
+              <div className="content-box">
+                <h2>{post.title}</h2>
+                <p>{post.content}</p>
+                {post.image ? <img src={post.image} alt={post.title} /> : null}
+              </div>
             </div>
           ))}
         </div>

@@ -7,6 +7,35 @@ const EditorPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
+  // 이미지
+  const [imageFile, setImageFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  // 이미지 체인지 핸들러
+  const handleImageChange = (e) => {
+    setImageFile(e.target.files[0]);
+  };
+  // 이미지 업로드 핸들러
+  const handleUpload = async () => {
+    const bucket = "images"; // 버킷 이름으로 변경
+    const fileName = `${Date.now()}_${imageFile.name.replace(
+      /[^a-zA-Z0-9.]/g,
+      "_"
+    )}`;
+
+    const { error } = await supabase.storage
+      .from(bucket)
+      .upload(fileName, imageFile);
+    if (error) {
+      console.error("이미지 업로드 중 에러 발생", error);
+      return;
+    }
+    const publicUrl = supabase.storage.from(bucket).getPublicUrl(fileName);
+
+    console.log(publicUrl);
+
+    setImageUrl(publicUrl.data.publicUrl);
+  };
 
   // 사용자 입력값 받아오기
   const onChangeTitle = (e) => {
@@ -19,7 +48,7 @@ const EditorPage = () => {
 
   const userData = JSON.parse(localStorage.getItem("userData"));
 
-  //데이터 전송
+  //데이터 전송 - 제목, 콘텐츠
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newData = {
@@ -27,6 +56,7 @@ const EditorPage = () => {
       author: userData.username,
       title: title,
       content: content,
+      image: imageUrl,
     };
     try {
       const response = await supabase.from("post").insert(newData);
@@ -45,29 +75,6 @@ const EditorPage = () => {
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const newContent = { title, content };
-
-  //   try {
-  //     const response = await axios.post(
-  //       `${process.env.REACT_APP_LOCAL_SERVER}/posts`,
-  //       newContent
-  //     );
-  //     console.log(response.data);
-  //     if (response.status === 201 || response.status === 200) {
-  //       alert("게시물이 성공적으로 등록되었습니다!");
-  //       // 빈 문자열로 인풋창 비워줌
-  //       setTitle("");
-  //       setContent("");
-  //       // 게시물 서버 업로드 성공하면 메인으로 보냄
-  //       navigate("/");
-  //     }
-  //   } catch (error) {
-  //     alert("게시물 업로드 실패");
-  //   }
-  // };
-
   return (
     <div className="editor-wrapper">
       <div className="editor-contents">
@@ -85,6 +92,11 @@ const EditorPage = () => {
             value={content}
             onChange={onChangeContent}
           ></textarea>
+          <div className="image-wrapper">
+            <input type="file" onChange={handleImageChange} />
+            <div onClick={handleUpload}>업로드</div>
+            {imageUrl && <img src={imageUrl} alt="Uploaded" />}
+          </div>
           <button type="submit">게시하기</button>
         </form>
       </div>
