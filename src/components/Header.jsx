@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <div className="header">
       <Link to="/" className="logo">
-        MangoGram
+        Daily Board
       </Link>
       <div className="button-group">
         {!userData?.id ? (

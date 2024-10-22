@@ -103,7 +103,7 @@ const MypagePage = () => {
                 value={newTitle}
                 onChange={onChangeNewTitleHandler}
                 className="newTitle-input"
-                placeholder="바꿀 제목을 입력해주세요!"
+                placeholder="바꿀 제목을 입력해주세요"
               />
             ) : null}
             <p>기존 본문 : {value.content}</p>
@@ -113,7 +113,7 @@ const MypagePage = () => {
                 onChange={onChangeNewContentHandler}
                 style={{ maxWidth: "1014px" }}
                 className="newContent-input"
-                placeholder="바꿀 내용을 입력해주세요!"
+                placeholder="바꿀 내용을 입력해주세요"
               />
             ) : null}
             <div className="button-group">
