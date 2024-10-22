@@ -93,11 +93,19 @@ const EditorPage = () => {
             onChange={onChangeContent}
           ></textarea>
           <div className="image-wrapper">
-            <input type="file" onChange={handleImageChange} />
-            <div onClick={handleUpload}>업로드</div>
-            {imageUrl && <img src={imageUrl} alt="Uploaded" />}
+            <div className="image-content">
+              <input type="file" onChange={handleImageChange} />
+              {imageUrl && (
+                <img src={imageUrl} alt="Uploaded" style={{ width: "100px" }} />
+              )}
+            </div>
           </div>
-          <button type="submit">게시하기</button>
+          <div className="btn-group">
+            <button type="submit">게시하기</button>
+            <div className="upload-btn" onClick={handleUpload}>
+              사진 업로드
+            </div>
+          </div>
         </form>
       </div>
     </div>

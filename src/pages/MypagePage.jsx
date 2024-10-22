@@ -2,6 +2,9 @@ import "../styles/MypagePage.scss";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import supabase from "../supabase/index";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
+import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 
 const MypagePage = () => {
   // 데이터 가져오기
@@ -63,43 +66,76 @@ const MypagePage = () => {
   };
 
   return (
-    <div className="mapage">
+    <div className="mypage">
+      <h1>내가 작성한 게시물 list 😄</h1>
       {items.map((value, index) => (
-        <div key={index}>
-          <p>{value.author}</p>
-          {/* <p>{value.image}</p> */}
-          <p>
-            글 쓴 날짜 :{" "}
-            {moment(value.created_at).format("YYYY년 MM월 DD일 HH:mm:ss")}
-          </p>
-          <p>
-            수정한 날짜 :{" "}
-            {moment(value.updated_at).format("YYYY년 MM월 DD일 HH:mm:ss")}
-          </p>
-          <p>기존 제목 : {value.title}</p>
-          {showInput === value.id ? (
-            <input value={newTitle} onChange={onChangeNewTitleHandler} />
-          ) : null}
-          <p>기존 본문 : {value.content}</p>
-          {showInput === value.id ? (
-            <input value={newContent} onChange={onChangeNewContentHandler} />
-          ) : null}
-
-          <button
-            onClick={() => {
-              onUpdateHandler(value);
-            }}
-          >
-            {showInput === value.id ? "확인" : "수정"}
-          </button>
-          <button
-            type="submit"
-            onClick={() => {
-              onDeleteHandler(value.id);
-            }}
-          >
-            삭제
-          </button>
+        <div className="content-container">
+          <div className="content-wrapper" key={index}>
+            <div className="author-group">
+              <FontAwesomeIcon
+                icon={faCircleUser}
+                size="2x"
+                style={{ color: "#5c7ecb" }}
+              />
+              <p>{value.author}</p>
+            </div>
+            <div className="date-group">
+              <FontAwesomeIcon
+                icon={faCalendarDays}
+                size="2x"
+                style={{ color: "#5c7ecb" }}
+              />
+              <div className="date-content">
+                <p>
+                  <span style={{ fontWeight: "600" }}>글 쓴 날짜</span> :{" "}
+                  {moment(value.created_at).format("YYYY년 MM월 DD일 HH:mm:ss")}
+                </p>
+                <p>
+                  {" "}
+                  <span style={{ fontWeight: "600" }}>수정한 날짜</span> :{" "}
+                  {moment(value.updated_at).format("YYYY년 MM월 DD일 HH:mm:ss")}
+                </p>
+              </div>
+            </div>
+            <p>기존 제목 : {value.title}</p>
+            {showInput === value.id ? (
+              <input
+                value={newTitle}
+                onChange={onChangeNewTitleHandler}
+                className="newTitle-input"
+                placeholder="바꿀 제목을 입력해주세요!"
+              />
+            ) : null}
+            <p>기존 본문 : {value.content}</p>
+            {showInput === value.id ? (
+              <textarea
+                value={newContent}
+                onChange={onChangeNewContentHandler}
+                style={{ maxWidth: "1014px" }}
+                className="newContent-input"
+                placeholder="바꿀 내용을 입력해주세요!"
+              />
+            ) : null}
+            <div className="button-group">
+              <button
+                onClick={() => {
+                  onUpdateHandler(value);
+                }}
+                className="update-button"
+              >
+                {showInput === value.id ? "확인" : "수정"}
+              </button>
+              <button
+                type="submit"
+                onClick={() => {
+                  onDeleteHandler(value.id);
+                }}
+                className="delete-button"
+              >
+                삭제
+              </button>
+            </div>
+          </div>
         </div>
       ))}
     </div>
