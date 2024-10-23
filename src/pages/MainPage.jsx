@@ -7,20 +7,25 @@ import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { faCircleUp } from "@fortawesome/free-regular-svg-icons";
 
 const MainPage = () => {
+  // 데이터 담을 배열
   const [posts, setPosts] = useState([]);
+  // 로컬스토리지에있는 userData 가져옴
   const userData = JSON.parse(localStorage.getItem("userData"));
 
+  // 수파베이스 전송
   useEffect(() => {
     const fetchItems = async () => {
       const response = await supabase
         .from("post")
         .select("*")
+        // ascending -> 내림차순
         .order("created_at", { ascending: false });
       setPosts(response.data);
     };
     fetchItems();
   }, []);
 
+  // 탑 스크롤 기능
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
