@@ -32,12 +32,11 @@
     display: flex;
     gap: 30px;
     padding-top: 20px;
-    .login-btn,
-    .social-login-btn {
+    .login-btn {
       width: 100px;
       height: 30px;
       text-align: center;
-      line-height: 30px;
+      // line-height: 30px;
       background-color: #5c7ecb;
       color: white;
       border-radius: 10px;

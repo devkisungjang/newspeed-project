@@ -67,7 +67,6 @@ const LoginPage = () => {
             <button className="login-btn" type="submit">
               로그인
             </button>
-            <div className="social-login-btn">깃허브</div>
           </div>
           {/* 회원가입 */}
           <Link to="/signup">회원가입</Link>

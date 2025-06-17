@@ -36,10 +36,11 @@
       width: 100px;
       height: 30px;
       text-align: center;
-      line-height: 30px;
+      // line-height: 30px;
       background-color: #5c7ecb;
       color: white;
       border-radius: 10px;
+      border-color: transparent;
       transition: 0.3s;
       &:hover {
         background-color: #91a9e6;
