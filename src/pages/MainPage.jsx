@@ -62,8 +62,6 @@ const MainPage = () => {
                 <h1 className="content-author">{post.author}</h1>
               </div>
               <div className="content-box">
-                <h2 className="content-title">{post.title}</h2>
-                <p className="content-main">{post.content}</p>
                 {post.image ? (
                   <img
                     src={post.image}
@@ -71,6 +69,8 @@ const MainPage = () => {
                     className="content-image"
                   />
                 ) : null}
+                <h2 className="content-title">{post.title}</h2>
+                <p className="content-main">{post.content}</p>
               </div>
             </div>
           ))}
